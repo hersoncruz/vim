@@ -71,3 +71,19 @@ set list
 set tabstop=2
 set shiftwidth=2
 set expandtab
+
+" Plug auto install
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+" Plugins will be downloaded under the specified directory.
+call plug#begin('~/.vim/plugged')
+
+" Plugins
+Plug 'elmcast/elm-vim'
+
+" List ends here. Plugins become visible to Vim after this call.
+call plug#end()
