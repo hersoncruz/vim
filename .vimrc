@@ -35,10 +35,10 @@ command! MakeTags !ctags -R .
 " - :edit a folder to open a file browser
 " - <CR>/v/t to open in an h-split/v-split/tab
 " - check |netrw-browser-maps| for more mappings
-let g:netrw_banner=0		" disable anoying banner
-let g:netrw_browser_split=4	" open in prior window
-let g:netrw_altv=1		" open splits to the right
-let g:netrw_liststyle=3		" tree view
+let g:netrw_banner=0      " disable anoying banner
+let g:netrw_browser_split=4   " open in prior window
+let g:netrw_altv=1        " open splits to the right
+let g:netrw_liststyle=3     " tree view
 let g:netrw_list_hide=netrw_gitignore#Hide()
 let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
@@ -46,3 +46,28 @@ let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 " Read an empty HTML template and move cursos to title
 nnoremap ,html :-1read $HOME/.vim/.skeleton.html<CR>3jwf>a
 nnoremap ,vd :-1read $HOME/.vim/.php.var_dump<CR>1jwfa
+
+" Make column 81 background different color.
+highlight ColorColumn ctermbg=magenta
+call matchadd('ColorColumn', '\%81v',100)
+
+" Highlight matched when jumping to next
+nnoremap <silent> n    n:call HLNext(0.4)<CR>
+nnoremap <silent> N    N:call HLNext(0.4)<CR>
+
+function! HLNext (blinktime)
+    set invcursorline
+    redraw
+    exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
+    set invcursorline
+    redraw
+endfunction
+
+" Show trail spaces and tabs
+exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
+set list
+
+" Tab width
+set tabstop=2
+set shiftwidth=2
+set expandtab
