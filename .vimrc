@@ -36,11 +36,18 @@ command! MakeTags !ctags -R .
 " - <CR>/v/t to open in an h-split/v-split/tab
 " - check |netrw-browser-maps| for more mappings
 let g:netrw_banner=0      " disable anoying banner
-let g:netrw_browser_split=4   " open in prior window
+let g:netrw_browser_split=4   " 1:hsplit, 2:vsplit, 3:ntab, 4:pwindow
 let g:netrw_altv=1        " open splits to the right
 let g:netrw_liststyle=3     " tree view
 let g:netrw_list_hide=netrw_gitignore#Hide()
 let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
+let g:netrw_winsize=25
+
+" Open navigation tree every time
+"augroup ProjectDrawer
+"  autocmd!
+"  autocmd VimEnter * :Vexplore
+"augroup END
 
 " SNIPPETS:
 " Read an empty HTML template and move cursos to title
@@ -72,6 +79,11 @@ set tabstop=2
 set shiftwidth=2
 set expandtab
 
+" Custom TODO bullets
+let g:VimTodoListsUndoneItem = '[ ]'
+let g:VimTodoListsDoneItem = '[x]'
+let g:VimTodoListsDatesEnabled = 1
+
 " Plug auto install
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -84,6 +96,8 @@ call plug#begin('~/.vim/plugged')
 
 " Plugins
 Plug 'elmcast/elm-vim'
+Plug 'Valloric/MatchTagAlways'
+Plug 'aserebryakov/vim-todo-lists'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
